@@ -1,29 +1,32 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Данный проект предназначен для студентов Alfa-campus, факультет QA
 
-### What is this repository for? ###
+### Зачем? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Получение и сдача домашних заданий по секциям git и java
+* Формирование навыков работы с репозиториями приближенные к промышленным
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### С чего начать? ###
 
-### Contribution guidelines ###
+* [Книжка про гит (на русском)](https://git-scm.com/book/ru/v2)
+* [Git for windows](https://tortoisegit.org) Скачать и установить
+* Git for Linux(Ubuntu): `sudo apt-get install git`
+* Git for MacOS: Надо поставить Xcode Command Line Tools
 
-* Writing tests
-* Code review
-* Other guidelines
+### Правила работы с репо ###
 
-### Who do I talk to? ###
+* Зарегистрироваться на https://bitbucket.org/ и указать наставникам/менторам почту для добавления к проекту 
+* Сделай форк это репозитория. Сверху возле кнопки "Клонировать" есть 3 точки. Там можно сделать форк в свое пространство. В своем пространстве ты царь и бог, твори и вытворяй
+* Для получения обновления заданий в свою репу запроси обновления. (Надо будет почитать про upstream, раздел 3.5 в книге из прошлого блока)
+* Для сдачи готового задания создай в своем репозитории ветку, содержащую твою фамилию и номер урока который необходимо проверять
+* Оформи решение к текущему уроку в нужной ветке
+* Отправь Pull Request (PR) в основной репозиторий для проверки (имя целевой ветки должно совпадать с веткой-источником). Будьте внимательны, если делать в мастер, могут попросить пересоздать PR.
+* По результатам ревью проверяющие оставят в PR замечания, это нормально, у всех бывает, и поставят акцепт. После этого PR может быть смержен, работа принята.
+* Готово.
 
-* Repo owner or admin
-* Other community or team contact
+### Где с нами пообщаться? ###
+
+* Канал кампуса в [ТГ](https://t.me/alfacampus)
+* Тут будет что-то еще для студентов //TODO: Обновить при появлении материалов
