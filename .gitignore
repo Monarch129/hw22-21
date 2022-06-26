@@ -48,3 +48,9 @@ Thumbs.db
 *.mov
 *.wmv
 
+*-java-lesson/build/
+*-java-lesson/.gradle/
+*-java-lesson/gradle/
+
+out/
+java-lessons.iml
