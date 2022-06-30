@@ -3,7 +3,6 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selenide.element;
 import static com.codeborne.selenide.Selenide.elements;
 import static org.openqa.selenium.By.className;
@@ -23,5 +22,16 @@ public class CartPage extends BasePage {
     }
     public SelenideElement getElementRemoveButton(SelenideElement cartItem) {
         return cartItem.find(cssSelector("button.cart_button"));
+    }
+
+    public int getCartItemsCount() {
+        ElementsCollection cart_collection = this.getCartItems();
+        return cart_collection.size();
+    }
+
+    public void RemoveAllItems() {
+        for (SelenideElement cartItem: getCartItems()) {
+            this.getElementRemoveButton(cartItem).click();
+        }
     }
 }

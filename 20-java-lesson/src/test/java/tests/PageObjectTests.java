@@ -1,12 +1,11 @@
 package tests;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Random;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import static com.codeborne.selenide.Condition.*;
 
 class PageObjectTests extends Application {
@@ -16,20 +15,15 @@ class PageObjectTests extends Application {
     }
     @Test
     void CheckAddedItemAppearsInBin(){
-        ElementsCollection collection = inventoryPage.getInventoryItems();
-        int collectionLength = collection.size();
-        for (SelenideElement invItem: collection) {
-            inventoryPage.getElementInnerButton(invItem).click();
-        }
-
+        int itemsAddedToCart = inventoryPage.addAllInventoryToCart();
         inventoryPage.getCartButton().click();
-        ElementsCollection cart_collection = cartPage.getCartItems();
+        int actualCartItemsCount = cartPage.getCartItemsCount();
 
-        cart_collection.shouldHave(CollectionCondition.size(collectionLength));
+        Assertions.assertEquals(itemsAddedToCart, actualCartItemsCount);
     }
 
     @Test
-    void CheckShoppingBadge(){
+    void CheckShoppingBadge(){ // тест короткий, а переносить assertions в page неправильно (тк assertions запрашиваю на каждое добавление товара)
         ElementsCollection collection = inventoryPage.getInventoryItems();
         int count = 0;
         for (SelenideElement invItem: collection) {
@@ -44,56 +38,41 @@ class PageObjectTests extends Application {
         String fName = "Julie";
         String lName = "Chimsburmger";
         String zip = "1234";
+        int expectedCartItemsCount = 0;
 
-        ElementsCollection collection = inventoryPage.getInventoryItems();
-        Random rnd = new Random();
-        int i = rnd.nextInt(collection.size());
-        inventoryPage.getElementInnerButton(collection.get(i)).click();
+        inventoryPage.addRandomItemToCart();
 
         inventoryPage.getCartButton().click();
         cartPage.getCheckoutButton().click();
 
-        checkoutStepOnePage.firstNameInput().setValue(fName);
-        checkoutStepOnePage.lastNameInput().setValue(lName);
-        checkoutStepOnePage.zipcodeInput().setValue(zip);
-        checkoutStepOnePage.getContinueButton().click();
+        checkoutStepOnePage.fillCheckoutInfo(fName, lName, zip);
         checkoutStepTwoPage.getFinishButton().click();
-
         checkoutCompletePage.backToProductsButton().click();
+
         inventoryPage.getCartButton().click();
 
-        ElementsCollection cart_collection = cartPage.getCartItems();
-        cart_collection.shouldHave(CollectionCondition.size(0));
+        int actualCartItemsCount = cartPage.getCartItemsCount();
+        Assertions.assertEquals(expectedCartItemsCount, actualCartItemsCount);
     }
-    @Test
-    void CheckOpenItemDetails(){
-        String[] inventoryList = {"Sauce Labs Backpack","Sauce Labs Bike Light",
-                "Sauce Labs Bolt T-Shirt","Sauce Labs Fleece Jacket",
-                "Sauce Labs Onesie","Test.allTheThings() T-Shirt (Red)"};
-        for (String invItem: inventoryList) {
-            inventoryPage.getItemDetailsByName(invItem).click();
+    @ParameterizedTest
+    @ValueSource(strings = {"Sauce Labs Backpack","Sauce Labs Bike Light",
+            "Sauce Labs Bolt T-Shirt","Sauce Labs Fleece Jacket",
+            "Sauce Labs Onesie","Test.allTheThings() T-Shirt (Red)"})
+    void CheckOpenItemDetails(String itemName){ // так же, тест очень простой, какую-либо логику выносить куда-то не вижу смысла.
+            inventoryPage.getItemDetailsByName(itemName).click();
             inventoryItemPage.getInventoryItemContainer().shouldBe(visible).shouldBe(enabled);
-            inventoryItemPage.getItemDetailBackButton().click();
-        }
     }
 
     @Test
     void CheckDeletingItemsFromTheBin(){
-        ElementsCollection itemCollection = inventoryPage.getInventoryItems();
-        int collectionLength = itemCollection.size();
-        for (SelenideElement invItem: itemCollection) {
-            inventoryPage.getElementInnerButton(invItem).click();
-        }
-
+        int addedItemCount = inventoryPage.addAllInventoryToCart();
         inventoryPage.getCartButton().click();
 
-        itemCollection = cartPage.getCartItems();
-        itemCollection.shouldHave(CollectionCondition.size(collectionLength));
+        int actualCartItemsCount = cartPage.getCartItemsCount();
+        Assertions.assertEquals(addedItemCount, actualCartItemsCount, "Amount after adding");
 
-        for (SelenideElement cartItem: itemCollection) {
-            cartPage.getElementRemoveButton(cartItem).click();
-        }
-
-        itemCollection.shouldHave(CollectionCondition.size(0));
+        cartPage.RemoveAllItems();
+        actualCartItemsCount = cartPage.getCartItemsCount();
+        Assertions.assertEquals(0,actualCartItemsCount, "Amount after deleting");
     }
 }

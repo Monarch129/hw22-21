@@ -28,17 +28,13 @@ public class Application {
     void Login(){
         String login = "standard_user";
         String password = "secret_sauce";
-
         loginPage.openPage();
-
-        loginPage.userNameInput().setValue(login);
-        loginPage.userPasswordInput().setValue(password);
-        loginPage.loginButton().click();
+        loginPage.Login(login, password);
     }
 
     @AfterEach
     void Wait() throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         //оставила для наглядности, что все работает верно
 
         Selenide.clearBrowserCookies();

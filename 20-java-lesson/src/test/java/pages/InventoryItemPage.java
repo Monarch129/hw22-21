@@ -1,7 +1,6 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-
 import static com.codeborne.selenide.Selenide.element;
 import static org.openqa.selenium.By.className;
 import static org.openqa.selenium.By.xpath;

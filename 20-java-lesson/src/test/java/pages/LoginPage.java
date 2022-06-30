@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selenide.element;
 
 public class LoginPage extends BasePage{
@@ -22,5 +21,11 @@ public class LoginPage extends BasePage{
 
     public SelenideElement loginButton() {
         return element(By.name("login-button"));
+    }
+
+    public void Login(String login, String password) {
+        this.userNameInput().setValue(login);
+        this.userPasswordInput().setValue(password);
+        this.loginButton().click();
     }
 }

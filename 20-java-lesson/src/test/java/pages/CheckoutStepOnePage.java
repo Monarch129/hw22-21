@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selenide.element;
 
 public class CheckoutStepOnePage extends BasePage {
@@ -25,5 +24,12 @@ public class CheckoutStepOnePage extends BasePage {
 
     public SelenideElement getContinueButton() {
         return element(By.xpath("//input[@id='continue']"));
+    }
+
+    public void fillCheckoutInfo(String fName, String lName, String zip) {
+        this.firstNameInput().setValue(fName);
+        this.lastNameInput().setValue(lName);
+        this.zipcodeInput().setValue(zip);
+        this.getContinueButton().click();
     }
 }
