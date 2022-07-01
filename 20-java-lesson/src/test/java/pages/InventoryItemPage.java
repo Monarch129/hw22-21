@@ -6,11 +6,9 @@ import static org.openqa.selenium.By.className;
 import static org.openqa.selenium.By.xpath;
 
 public class InventoryItemPage extends BasePage {
-    private static String pageUrl = "";
     public InventoryItemPage() {
-        super(pageUrl);
+        super();
     }
-
     public SelenideElement getItemDetailBackButton() {
         return element(xpath("//button[@id='back-to-products']"));
     }

@@ -1,43 +1,41 @@
 package tests;
 
-import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import pages.*;
+import steps.*;
 
 public class Application {
-    LoginPage loginPage;
-    InventoryPage inventoryPage;
-    InventoryItemPage inventoryItemPage;
-    CheckoutStepOnePage checkoutStepOnePage;
-    CheckoutStepTwoPage checkoutStepTwoPage;
-    CheckoutCompletePage checkoutCompletePage;
-    CartPage cartPage;
+    LoginPageSteps loginPageSteps;
+    InventoryPageSteps inventoryPageSteps;
+    InventoryItemPageSteps inventoryItemPageSteps;
+    CheckoutStepOnePageSteps checkoutStepOnePageSteps;
+    CheckoutStepTwoPageSteps checkoutStepTwoPageSteps;
+    CheckoutCompletePageSteps checkoutCompletePageSteps;
+    CartPageSteps cartPageSteps;
+    CommonSteps commonSteps;
 
     public Application() {
-        loginPage = new LoginPage();
-        inventoryPage = new InventoryPage();
-        inventoryItemPage = new InventoryItemPage();
-        checkoutStepOnePage = new CheckoutStepOnePage();
-        checkoutStepTwoPage = new CheckoutStepTwoPage();
-        checkoutCompletePage = new CheckoutCompletePage();
-        cartPage = new CartPage();
+        loginPageSteps = new LoginPageSteps();
+        inventoryPageSteps = new InventoryPageSteps();
+        inventoryItemPageSteps = new InventoryItemPageSteps();
+        checkoutStepOnePageSteps = new CheckoutStepOnePageSteps();
+        checkoutStepTwoPageSteps = new CheckoutStepTwoPageSteps();
+        checkoutCompletePageSteps = new CheckoutCompletePageSteps();
+        cartPageSteps = new CartPageSteps();
+        commonSteps = new CommonSteps();
     }
 
     @BeforeEach
     void Login(){
         String login = "standard_user";
         String password = "secret_sauce";
-        loginPage.openPage();
-        loginPage.Login(login, password);
+        commonSteps.openUrl("https://www.saucedemo.com/");
+        loginPageSteps.Login(login, password);
     }
 
     @AfterEach
     void Wait() throws InterruptedException {
-        Thread.sleep(2000);
-        //оставила для наглядности, что все работает верно
-
-        Selenide.clearBrowserCookies();
-        Selenide.clearBrowserLocalStorage();
+        Thread.sleep(2000);//оставила для наглядности, что все работает верно
+        commonSteps.clearCookiesAndStorage();
     }
 }
