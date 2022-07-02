@@ -3,15 +3,16 @@ package steps;
 import pages.InventoryItemPage;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.page;
 
 public class InventoryItemPageSteps {
     InventoryItemPage page;
 
     public InventoryItemPageSteps() {
-        this.page = new InventoryItemPage();
+        this.page = page(InventoryItemPage.class);
     }
 
     public void checkInventoryItemIsOpenedAndShown() {
-        page.getInventoryItemContainer().shouldBe(visible).shouldBe(enabled);
+        page.inventoryItemContainer.shouldBe(visible).shouldBe(enabled);
     }
 }

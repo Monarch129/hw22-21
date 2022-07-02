@@ -2,14 +2,16 @@ package steps;
 
 import pages.CheckoutStepTwoPage;
 
+import static com.codeborne.selenide.Selenide.page;
+
 public class CheckoutStepTwoPageSteps {
     CheckoutStepTwoPage page;
 
     public CheckoutStepTwoPageSteps() {
-        this.page = new CheckoutStepTwoPage();
+        this.page = page(CheckoutStepTwoPage.class);
     }
 
     public void finishOrder() {
-        page.getFinishButton().click();
+        page.finishButton.click();
     }
 }
